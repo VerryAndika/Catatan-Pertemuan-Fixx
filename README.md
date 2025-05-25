@@ -3,283 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Catatan Pertemuan Kolaboratif</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Catatan Pertemuan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff;
-      --text: #333;
-      --border: #e0e0e0;
-      --primary: #bdbdbd;
-      --online-bg: #90caf9;
-      --offline-bg: #a5d6a7;
-      --asinkronus-bg: #ffcc80;
-      --putih-abu-bg: #f5f5f5;
-      --uts-bg: #fff176;
-      --libur-bg: #ef5350;
-      --uas-bg: #b71c1c;
-      --connected: #4CAF50;
-      --disconnected: #f44336;
+      --text: #1f2937;
+      --border: #e5e7eb;
+      --primary: #f3f4f6;
+      --online-bg: #dbeafe;
+      --offline-bg: #dcfce7;
+      --asinkronus-bg: #fef3c7;
+      --putih-abu-bg: #f9fafb;
+      --uts-bg: #fef08a;
+      --libur-bg: #fecaca;
+      --uas-bg: #dc2626;
+      --button-primary: #374151;
+      --button-hover: #1f2937;
     }
+    
     * {
       box-sizing: border-box;
     }
+    
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       margin: 0;
-      padding: 1rem;
+      padding: 2rem;
+      line-height: 1.5;
     }
     
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-      gap: 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
     }
     
-    .connection-status {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+    .header h1 {
+      font-size: 2rem;
       font-weight: 600;
-      font-size: 0.875rem;
+      margin: 0;
+      color: var(--text);
+      letter-spacing: -0.025em;
     }
     
-    .status-online {
-      background: var(--connected);
-      color: white;
-    }
-    
-    .status-offline {
-      background: var(--disconnected);
-      color: white;
-    }
-    
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: currentColor;
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-    
-    .users-online {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      color: #666;
-    }
-    
-    .user-avatar {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: bold;
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
     }
     
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
-      overflow-x: auto;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      border-radius: 8px;
-      font-size: 0.8rem;
-    }
-    
-    .table-container {
-      overflow-x: auto;
-      position: relative;
+      font-size: 0.875rem;
     }
     
     th, td {
       border: 1px solid var(--border);
-      padding: 0.6rem;
+      padding: 0.75rem;
       text-align: center;
       vertical-align: top;
-      font-size: 0.8rem;
       min-width: 80px;
-      position: relative;
     }
     
     th:first-child, td:first-child {
       text-align: left;
-      min-width: 200px;
-      font-size: 0.85rem;
+      min-width: 220px;
+      font-weight: 500;
     }
     
     th {
       background: var(--primary);
       font-weight: 600;
+      color: var(--text);
     }
     
     .Online, .Praktisi { background-color: var(--online-bg); }
     .Offline { background-color: var(--offline-bg); }
     .Asinkronus, .Penugasan, .Elearning { background-color: var(--asinkronus-bg); }
-    .none { font-style: italic; font-weight: normal; color: #757575; background-color: var(--putih-abu-bg);}
+    .none { font-style: italic; font-weight: normal; color: #6b7280; background-color: var(--putih-abu-bg);}
     .UTS { background-color: var(--uts-bg); }
-    .Libur { background-color: var(--libur-bg); color: white; }
+    .Libur { background-color: var(--libur-bg); }
     .UAS { background-color: var(--uas-bg); color: white; }
     .Kosong { background-color: white; }
-    .Tetap { color: #0d47a1; font-weight: bold; }
-    .Dipindahkan { color: #ef6c00; font-weight: bold; }
-    .Dibatalkan { color: #b71c1c; font-weight: bold; }
-    .TildeStatus { color: #9e9e9e; font-weight: normal; }
-    .NoInfo { color: #757575; font-style: italic; font-weight: normal; }
+    .Tetap { color: #059669; font-weight: 500; }
+    .Dipindahkan { color: #d97706; font-weight: 500; }
+    .Dibatalkan { color: #dc2626; font-weight: 500; }
+    .TildeStatus { color: #6b7280; font-weight: normal; }
+    .NoInfo { color: #6b7280; font-style: italic; font-weight: normal; }
+    
+    .editable {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 2rem;
+    }
+    
+    .editable:hover {
+      background-color: #f8fafc !important;
+      box-shadow: inset 0 0 0 1px #3b82f6;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      background: #fafbfc;
+      border-radius: 0 0 8px 8px;
+    }
+    
+    .btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn:hover {
+      background: var(--button-primary);
+      color: white;
+      border-color: var(--button-primary);
+    }
+    
+    .btn-primary {
+      background: var(--button-primary);
+      color: white;
+      border-color: var(--button-primary);
+    }
+    
+    .btn-primary:hover {
+      background: var(--button-hover);
+      border-color: var(--button-hover);
+    }
     
     .editor {
       display: none;
       flex-direction: column;
-      gap: 0.5rem;
-      background: #ffffff;
+      gap: 1rem;
+      background: white;
       border: 1px solid var(--border);
-      padding: 1rem;
+      padding: 1.5rem;
       position: absolute;
       z-index: 10;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      min-width: 250px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      min-width: 280px;
+    }
+    
+    .editor label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-weight: 500;
+      font-size: 0.875rem;
     }
     
     .editor input,
-    .editor select,
-    .editor button {
-      padding: 0.5rem;
+    .editor select {
+      padding: 0.625rem;
       font-size: 0.875rem;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 0.25rem;
-      font-family: 'Poppins', sans-serif;
-    }
-    
-    .editor button {
-      background: #3a86ff;
-      color: white;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-    
-    .editor button:hover {
-      background: #2f70d9;
-    }
-    
-    .editable {
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-    }
-    
-    .editable:hover {
-      opacity: 0.8;
-      transform: scale(1.02);
-    }
-    
-    .editable.editing {
-      outline: 2px solid #3a86ff;
-      outline-offset: -2px;
-    }
-    
-    .cell-editor-indicator {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ff9800;
-      display: none;
-    }
-    
-    .editable.being-edited .cell-editor-indicator {
-      display: block;
-    }
-    
-    .recent-changes {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: white;
       border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      max-width: 300px;
-      max-height: 200px;
-      overflow-y: auto;
-      font-size: 0.75rem;
-      display: none;
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s ease;
     }
     
-    .recent-changes h4 {
-      margin: 0 0 0.5rem 0;
+    .editor input:focus,
+    .editor select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .editor-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      color: white;
+      font-weight: 500;
+      z-index: 1000;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       font-size: 0.875rem;
     }
     
-    .change-item {
-      padding: 0.25rem 0;
-      border-bottom: 1px solid #eee;
-    }
+    .notification.success { background: #059669; }
+    .notification.error { background: #dc2626; }
+    .notification.info { background: #3b82f6; }
     
-    .change-item:last-child {
-      border-bottom: none;
-    }
-    
-    .sync-indicator {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.8);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 0.5rem;
+    #fileInput {
       display: none;
-      z-index: 1000;
-    }
-    
-    .sync-spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top: 2px solid white;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-right: 0.5rem;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
     
     @media (max-width: 768px) {
-      .header {
-        flex-direction: column;
-        align-items: stretch;
+      body {
+        padding: 1rem;
       }
       
-      .connection-status {
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 200px;
         justify-content: center;
       }
       
@@ -290,161 +247,232 @@
         position: fixed !important;
       }
       
-      .recent-changes {
-        bottom: 10px;
-        right: 10px;
-        left: 10px;
-        max-width: none;
+      th:first-child, td:first-child {
+        min-width: 180px;
       }
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <h2>Catatan Pertemuan Kolaboratif</h2>
-    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-      <div id="connectionStatus" class="connection-status status-online">
-        <div class="status-dot"></div>
-        <span>Terhubung</span>
-      </div>
-      <div class="users-online">
-        <span>Pengguna aktif:</span>
-        <div id="activeUsers">
-          <div class="user-avatar">A</div>
-          <div class="user-avatar">B</div>
-          <div class="user-avatar">C</div>
-        </div>
-      </div>
-    </div>
+    <h1>Catatan Pertemuan</h1>
   </div>
-
+  
   <div class="table-container">
-    <table id="mainTable">
-    <thead>
-      <tr>
-        <th>Mata Kuliah</th>
-        <th colspan="16">Pertemuan</th>
-      </tr>
-      <tr>
-        <th></th>
-        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-        <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
-        <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Agama Hindu</td>
-        <td class="editable" data-row="0" data-col="0"></td><td class="editable" data-row="0" data-col="1"></td>
-        <td class="editable" data-row="0" data-col="2"></td><td class="editable" data-row="0" data-col="3"></td>
-        <td class="editable" data-row="0" data-col="4"></td><td class="editable" data-row="0" data-col="5"></td>
-        <td class="editable" data-row="0" data-col="6"></td><td class="editable" data-row="0" data-col="7"></td>
-        <td class="editable" data-row="0" data-col="8"></td><td class="editable" data-row="0" data-col="9"></td>
-        <td class="editable" data-row="0" data-col="10"></td><td class="editable" data-row="0" data-col="11"></td>
-        <td class="editable" data-row="0" data-col="12"></td><td class="editable" data-row="0" data-col="13"></td>
-        <td class="editable" data-row="0" data-col="14"></td><td class="editable" data-row="0" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Bahasa Indonesia</td>
-        <td class="editable" data-row="1" data-col="0"></td><td class="editable" data-row="1" data-col="1"></td>
-        <td class="editable" data-row="1" data-col="2"></td><td class="editable" data-row="1" data-col="3"></td>
-        <td class="editable" data-row="1" data-col="4"></td><td class="editable" data-row="1" data-col="5"></td>
-        <td class="editable" data-row="1" data-col="6"></td><td class="editable" data-row="1" data-col="7"></td>
-        <td class="editable" data-row="1" data-col="8"></td><td class="editable" data-row="1" data-col="9"></td>
-        <td class="editable" data-row="1" data-col="10"></td><td class="editable" data-row="1" data-col="11"></td>
-        <td class="editable" data-row="1" data-col="12"></td><td class="editable" data-row="1" data-col="13"></td>
-        <td class="editable" data-row="1" data-col="14"></td><td class="editable" data-row="1" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Didaktik Metodik Pembelajaran Informatika</td>
-        <td class="editable" data-row="2" data-col="0"></td><td class="editable" data-row="2" data-col="1"></td>
-        <td class="editable" data-row="2" data-col="2"></td><td class="editable" data-row="2" data-col="3"></td>
-        <td class="editable" data-row="2" data-col="4"></td><td class="editable" data-row="2" data-col="5"></td>
-        <td class="editable" data-row="2" data-col="6"></td><td class="editable" data-row="2" data-col="7"></td>
-        <td class="editable" data-row="2" data-col="8"></td><td class="editable" data-row="2" data-col="9"></td>
-        <td class="editable" data-row="2" data-col="10"></td><td class="editable" data-row="2" data-col="11"></td>
-        <td class="editable" data-row="2" data-col="12"></td><td class="editable" data-row="2" data-col="13"></td>
-        <td class="editable" data-row="2" data-col="14"></td><td class="editable" data-row="2" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Asesmen dan Evaluasi Pembelajaran Teknik Informatika</td>
-        <td class="editable" data-row="3" data-col="0"></td><td class="editable" data-row="3" data-col="1"></td>
-        <td class="editable" data-row="3" data-col="2"></td><td class="editable" data-row="3" data-col="3"></td>
-        <td class="editable" data-row="3" data-col="4"></td><td class="editable" data-row="3" data-col="5"></td>
-        <td class="editable" data-row="3" data-col="6"></td><td class="editable" data-row="3" data-col="7"></td>
-        <td class="editable" data-row="3" data-col="8"></td><td class="editable" data-row="3" data-col="9"></td>
-        <td class="editable" data-row="3" data-col="10"></td><td class="editable" data-row="3" data-col="11"></td>
-        <td class="editable" data-row="3" data-col="12"></td><td class="editable" data-row="3" data-col="13"></td>
-        <td class="editable" data-row="3" data-col="14"></td><td class="editable" data-row="3" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Sistem Informasi</td>
-        <td class="editable" data-row="4" data-col="0"></td><td class="editable" data-row="4" data-col="1"></td>
-        <td class="editable" data-row="4" data-col="2"></td><td class="editable" data-row="4" data-col="3"></td>
-        <td class="editable" data-row="4" data-col="4"></td><td class="editable" data-row="4" data-col="5"></td>
-        <td class="editable" data-row="4" data-col="6"></td><td class="editable" data-row="4" data-col="7"></td>
-        <td class="editable" data-row="4" data-col="8"></td><td class="editable" data-row="4" data-col="9"></td>
-        <td class="editable" data-row="4" data-col="10"></td><td class="editable" data-row="4" data-col="11"></td>
-        <td class="editable" data-row="4" data-col="12"></td><td class="editable" data-row="4" data-col="13"></td>
-        <td class="editable" data-row="4" data-col="14"></td><td class="editable" data-row="4" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Algoritma dan Pemrograman</td>
-        <td class="editable" data-row="5" data-col="0"></td><td class="editable" data-row="5" data-col="1"></td>
-        <td class="editable" data-row="5" data-col="2"></td><td class="editable" data-row="5" data-col="3"></td>
-        <td class="editable" data-row="5" data-col="4"></td><td class="editable" data-row="5" data-col="5"></td>
-        <td class="editable" data-row="5" data-col="6"></td><td class="editable" data-row="5" data-col="7"></td>
-        <td class="editable" data-row="5" data-col="8"></td><td class="editable" data-row="5" data-col="9"></td>
-        <td class="editable" data-row="5" data-col="10"></td><td class="editable" data-row="5" data-col="11"></td>
-        <td class="editable" data-row="5" data-col="12"></td><td class="editable" data-row="5" data-col="13"></td>
-        <td class="editable" data-row="5" data-col="14"></td><td class="editable" data-row="5" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Belajar dan Pembelajaran</td>
-        <td class="editable" data-row="6" data-col="0"></td><td class="editable" data-row="6" data-col="1"></td>
-        <td class="editable" data-row="6" data-col="2"></td><td class="editable" data-row="6" data-col="3"></td>
-        <td class="editable" data-row="6" data-col="4"></td><td class="editable" data-row="6" data-col="5"></td>
-        <td class="editable" data-row="6" data-col="6"></td><td class="editable" data-row="6" data-col="7"></td>
-        <td class="editable" data-row="6" data-col="8"></td><td class="editable" data-row="6" data-col="9"></td>
-        <td class="editable" data-row="6" data-col="10"></td><td class="editable" data-row="6" data-col="11"></td>
-        <td class="editable" data-row="6" data-col="12"></td><td class="editable" data-row="6" data-col="13"></td>
-        <td class="editable" data-row="6" data-col="14"></td><td class="editable" data-row="6" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Statistika Dasar</td>
-        <td class="editable" data-row="7" data-col="0"></td><td class="editable" data-row="7" data-col="1"></td>
-        <td class="editable" data-row="7" data-col="2"></td><td class="editable" data-row="7" data-col="3"></td>
-        <td class="editable" data-row="7" data-col="4"></td><td class="editable" data-row="7" data-col="5"></td>
-        <td class="editable" data-row="7" data-col="6"></td><td class="editable" data-row="7" data-col="7"></td>
-        <td class="editable" data-row="7" data-col="8"></td><td class="editable" data-row="7" data-col="9"></td>
-        <td class="editable" data-row="7" data-col="10"></td><td class="editable" data-row="7" data-col="11"></td>
-        <td class="editable" data-row="7" data-col="12"></td><td class="editable" data-row="7" data-col="13"></td>
-        <td class="editable" data-row="7" data-col="14"></td><td class="editable" data-row="7" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>UI/UX</td>
-        <td class="editable" data-row="8" data-col="0"></td><td class="editable" data-row="8" data-col="1"></td>
-        <td class="editable" data-row="8" data-col="2"></td><td class="editable" data-row="8" data-col="3"></td>
-        <td class="editable" data-row="8" data-col="4"></td><td class="editable" data-row="8" data-col="5"></td>
-        <td class="editable" data-row="8" data-col="6"></td><td class="editable" data-row="8" data-col="7"></td>
-        <td class="editable" data-row="8" data-col="8"></td><td class="editable" data-row="8" data-col="9"></td>
-        <td class="editable" data-row="8" data-col="10"></td><td class="editable" data-row="8" data-col="11"></td>
-        <td class="editable" data-row="8" data-col="12"></td><td class="editable" data-row="8" data-col="13"></td>
-        <td class="editable" data-row="8" data-col="14"></td><td class="editable" data-row="8" data-col="15"></td>
-      </tr>
-      <tr>
-        <td>Basis Data</td>
-        <td class="editable" data-row="9" data-col="0"></td><td class="editable" data-row="9" data-col="1"></td>
-        <td class="editable" data-row="9" data-col="2"></td><td class="editable" data-row="9" data-col="3"></td>
-        <td class="editable" data-row="9" data-col="4"></td><td class="editable" data-row="9" data-col="5"></td>
-        <td class="editable" data-row="9" data-col="6"></td><td class="editable" data-row="9" data-col="7"></td>
-        <td class="editable" data-row="9" data-col="8"></td><td class="editable" data-row="9" data-col="9"></td>
-        <td class="editable" data-row="9" data-col="10"></td><td class="editable" data-row="9" data-col="11"></td>
-        <td class="editable" data-row="9" data-col="12"></td><td class="editable" data-row="9" data-col="13"></td>
-        <td class="editable" data-row="9" data-col="14"></td><td class="editable" data-row="9" data-col="15"></td>
-      </tr>
-    </tbody>
+    <table>
+      <thead>
+        <tr>
+          <th>Mata Kuliah</th>
+          <th colspan="16">Pertemuan</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+          <th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+          <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Agama Hindu</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Bahasa Indonesia</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Didaktik Metodik Pembelajaran Informatika</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Asesmen dan Evaluasi Pembelajaran Teknik Informatika</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Sistem Informasi</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Algoritma dan Pemrograman</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Belajar dan Pembelajaran</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Statistika Dasar</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>UI/UX</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+        <tr>
+          <td>Basis Data</td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+          <td class="editable"></td>
+        </tr>
+      </tbody>
     </table>
+    
+    <div class="controls">
+      <button class="btn btn-primary" onclick="saveData()">Simpan Data</button>
+      <button class="btn" onclick="loadData()">Muat Data</button>
+      <button class="btn" onclick="exportData()">Export JSON</button>
+      <input type="file" id="fileInput" accept=".json" onchange="importData(event)">
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Import JSON</button>
+    </div>
   </div>
 
   <div id="editor" class="editor">
@@ -478,113 +506,31 @@
     <label>Jam:
       <input type="time" id="jam">
     </label>
-    <button onclick="applyEdit()">Simpan</button>
-    <button onclick="closeEditor()" style="background: #666; margin-top: 0.25rem;">Batal</button>
-  </div>
-
-  <div id="recentChanges" class="recent-changes">
-    <h4>Perubahan Terbaru</h4>
-    <div id="changesList"></div>
-  </div>
-
-  <div id="syncIndicator" class="sync-indicator">
-    <div class="sync-spinner"></div>
-    Menyinkronkan...
+    <div class="editor-actions">
+      <button class="btn btn-primary" onclick="applyEdit()">Simpan</button>
+      <button class="btn" onclick="closeEditor()">Batal</button>
+    </div>
   </div>
 
   <script>
     const editor = document.getElementById('editor');
-    const connectionStatus = document.getElementById('connectionStatus');
-    const recentChanges = document.getElementById('recentChanges');
-    const changesList = document.getElementById('changesList');
-    const syncIndicator = document.getElementById('syncIndicator');
-    
     let currentCell = null;
-    let tableData = {};
-    let isOnline = true;
-    let editingCells = new Set();
-    let recentChangesList = [];
-    let simulatedUsers = ['Anna', 'Budi', 'Citra', 'Dani', 'Eka'];
-    let currentUser = simulatedUsers[Math.floor(Math.random() * simulatedUsers.length)];
 
-    // Initialize collaborative features
+    // Load data on page load
     window.addEventListener('load', () => {
-      initializeCollaborativeFeatures();
-      initializeEventListeners();
-      simulateNetworkStatus();
-      simulateCollaborativeEditing();
+      loadData();
     });
 
-    function initializeCollaborativeFeatures() {
-      // Simulate real-time collaboration
-      setInterval(syncData, 3000); // Sync every 3 seconds
-      setInterval(updateActiveUsers, 5000); // Update users every 5 seconds
-      setInterval(simulateRemoteChanges, 8000); // Simulate remote changes every 8 seconds
-      
-      // Show recent changes panel
-      setTimeout(() => {
-        recentChanges.style.display = 'block';
-      }, 2000);
-    }
-
-    function initializeEventListeners() {
-      document.querySelectorAll('.editable').forEach(cell => {
-        cell.addEventListener('click', openEditor);
-        
-        // Add cell editor indicator
-        const indicator = document.createElement('div');
-        indicator.className = 'cell-editor-indicator';
-        cell.appendChild(indicator);
+    document.querySelectorAll('.editable').forEach(cell => {
+      cell.addEventListener('click', () => {
+        currentCell = cell;
+        const rect = cell.getBoundingClientRect();
+        editor.style.left = `${rect.left + window.scrollX}px`;
+        editor.style.top = `${rect.bottom + window.scrollY + 5}px`;
+        editor.style.display = 'flex';
+        fillEditorFormFromCell(cell);
       });
-
-      // Close editor when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!editor.contains(e.target) && !e.target.classList.contains('editable')) {
-          closeEditor();
-        }
-      });
-
-      // Close editor on Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          closeEditor();
-        }
-      });
-    }
-
-    function openEditor(event) {
-      const cell = event.target.closest('.editable');
-      if (!cell) return;
-      
-      currentCell = cell;
-      const rect = cell.getBoundingClientRect();
-      
-      // Better positioning logic
-      let left = rect.left + window.scrollX;
-      let top = rect.bottom + window.scrollY + 5;
-      
-      // Adjust if editor would go offscreen
-      const editorWidth = 250;
-      const editorHeight = 300;
-      
-      if (left + editorWidth > window.innerWidth) {
-        left = window.innerWidth - editorWidth - 20;
-      }
-      
-      if (top + editorHeight > window.innerHeight + window.scrollY) {
-        top = rect.top + window.scrollY - editorHeight - 5;
-      }
-      
-      editor.style.left = `${Math.max(10, left)}px`;
-      editor.style.top = `${Math.max(10, top)}px`;
-      editor.style.display = 'flex';
-      
-      // Mark cell as being edited
-      cell.classList.add('editing', 'being-edited');
-      editingCells.add(cell);
-      
-      fillEditorFormFromCell(cell);
-    }
+    });
 
     function fillEditorFormFromCell(cell) {
       const jenisSelect = document.getElementById('jenis');
@@ -593,3 +539,279 @@
       const jamInput = document.getElementById('jam');
 
       // Reset form
+      jenisSelect.value = 'Kosong';
+      statusSelect.value = 'Tetap';
+      tanggalInput.value = '';
+      jamInput.value = '';
+
+      if (!cell || !cell.innerHTML.trim()) {
+        return;
+      }
+
+      if (cell.textContent.trim() === '~') {
+        jenisSelect.value = 'none';
+        statusSelect.value = '~';
+        return;
+      }
+
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = cell.innerHTML;
+
+      const jenisElem = tempDiv.querySelector('b');
+      const statusElem = tempDiv.querySelector('span');
+
+      if (jenisElem) {
+        jenisSelect.value = jenisElem.textContent;
+      }
+
+      if (statusElem) {
+        if (statusElem.classList.contains('NoInfo')) {
+          statusSelect.value = 'NoInfo';
+        } else if (statusElem.textContent === '~') {
+          statusSelect.value = '~';
+        } else {
+          statusSelect.value = statusElem.textContent;
+        }
+      }
+    }
+
+    function applyEdit() {
+      const jenis = document.getElementById('jenis').value;
+      const status = document.getElementById('status').value;
+      const tanggal = document.getElementById('tanggal').value;
+      const jam = document.getElementById('jam').value;
+
+      if (!currentCell) return;
+
+      // Clear existing classes and add new ones
+      currentCell.className = `editable ${jenis}`;
+
+      if (jenis === 'Kosong') {
+        currentCell.innerHTML = '';
+        closeEditor();
+        autoSave();
+        return;
+      }
+
+      if (jenis === 'none' && status === '~') {
+        currentCell.innerHTML = '~';
+        closeEditor();
+        autoSave();
+        return;
+      }
+
+      let statusClass = status;
+      if (status === '~') statusClass = 'TildeStatus';
+      if (status === 'NoInfo') statusClass = 'NoInfo';
+
+      const formattedDate = formatDate(tanggal);
+      const dateTimeInfo = tanggal ? `<br><i>${formattedDate}${jam ? `<br>Jam: ${jam}` : ''}</i>` : '';
+
+      const html = `
+        <b>${jenis}</b><br>
+        • <span class="${statusClass}">${status === 'NoInfo' ? 'No Info' : status}</span>
+        ${dateTimeInfo}
+      `;
+
+      currentCell.innerHTML = html;
+      closeEditor();
+      autoSave();
+    }
+
+    function closeEditor() {
+      editor.style.display = 'none';
+      currentCell = null;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      
+      try {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('id-ID', options);
+      } catch (e) {
+        return dateStr;
+      }
+    }
+
+    // Auto-save functionality
+    function autoSave() {
+      const tableData = {};
+      const rows = document.querySelectorAll('tbody tr');
+      
+      rows.forEach((row, rowIndex) => {
+        const matkulName = row.querySelector('td:first-child').textContent;
+        const cells = row.querySelectorAll('.editable');
+        
+        tableData[matkulName] = {};
+        cells.forEach((cell, cellIndex) => {
+          const pertemuan = cellIndex + 1;
+          tableData[matkulName][`pertemuan_${pertemuan}`] = {
+            html: cell.innerHTML,
+            className: cell.className
+          };
+        });
+      });
+      
+      // Store in memory instead of localStorage
+      window.appData = tableData;
+    }
+
+    // Save data
+    function saveData() {
+      const tableData = {};
+      const rows = document.querySelectorAll('tbody tr');
+      
+      rows.forEach((row, rowIndex) => {
+        const matkulName = row.querySelector('td:first-child').textContent;
+        const cells = row.querySelectorAll('.editable');
+        
+        tableData[matkulName] = {};
+        cells.forEach((cell, cellIndex) => {
+          const pertemuan = cellIndex + 1;
+          tableData[matkulName][`pertemuan_${pertemuan}`] = {
+            html: cell.innerHTML,
+            className: cell.className
+          };
+        });
+      });
+      
+      window.appData = tableData;
+      showNotification('Data berhasil disimpan!', 'success');
+    }
+
+    // Load data
+    function loadData() {
+      if (!window.appData) {
+        showNotification('Tidak ada data tersimpan', 'info');
+        return;
+      }
+
+      try {
+        const tableData = window.appData;
+        const rows = document.querySelectorAll('tbody tr');
+        
+        rows.forEach((row) => {
+          const matkulName = row.querySelector('td:first-child').textContent;
+          const cells = row.querySelectorAll('.editable');
+          
+          if (tableData[matkulName]) {
+            cells.forEach((cell, cellIndex) => {
+              const pertemuan = cellIndex + 1;
+              const cellData = tableData[matkulName][`pertemuan_${pertemuan}`];
+              
+              if (cellData) {
+                cell.innerHTML = cellData.html || '';
+                cell.className = cellData.className || 'editable';
+              }
+            });
+          }
+        });
+        
+        showNotification('Data berhasil dimuat!', 'success');
+      } catch (error) {
+        showNotification('Error memuat data: ' + error.message, 'error');
+      }
+    }
+
+    // Export data as JSON file
+    function exportData() {
+      const tableData = {};
+      const rows = document.querySelectorAll('tbody tr');
+      
+      rows.forEach((row) => {
+        const matkulName = row.querySelector('td:first-child').textContent;
+        const cells = row.querySelectorAll('.editable');
+        
+        tableData[matkulName] = {};
+        cells.forEach((cell, cellIndex) => {
+          const pertemuan = cellIndex + 1;
+          tableData[matkulName][`pertemuan_${pertemuan}`] = {
+            html: cell.innerHTML,
+            className: cell.className
+          };
+        });
+      });
+      
+      const dataStr = JSON.stringify(tableData, null, 2);
+      const dataBlob = new Blob([dataStr], {type: 'application/json'});
+      const url = URL.createObjectURL(dataBlob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `catatan-pertemuan-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      showNotification('Data berhasil diexport!', 'success');
+    }
+
+    // Import data from JSON file
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const tableData = JSON.parse(e.target.result);
+          const rows = document.querySelectorAll('tbody tr');
+          
+          rows.forEach((row) => {
+            const matkulName = row.querySelector('td:first-child').textContent;
+            const cells = row.querySelectorAll('.editable');
+            
+            if (tableData[matkulName]) {
+              cells.forEach((cell, cellIndex) => {
+                const pertemuan = cellIndex + 1;
+                const cellData = tableData[matkulName][`pertemuan_${pertemuan}`];
+                
+                if (cellData) {
+                  cell.innerHTML = cellData.html || '';
+                  cell.className = cellData.className || 'editable';
+                }
+              });
+            }
+          });
+          
+          // Save imported data
+          window.appData = tableData;
+          showNotification('Data berhasil diimport!', 'success');
+        } catch (error) {
+          showNotification('Error mengimport data: ' + error.message, 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Show notification
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      notification.className = `notification ${type}`;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!editor.contains(e.target) && !e.target.classList.contains('editable')) {
+        closeEditor();
+      }
+    });
+
+    // Close editor on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeEditor();
+      }
+    });
+  </script>
+</body>
+</html>
