@@ -6,7 +6,6 @@
   <title>Catatan Pertemuan</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* ... styles remain the same ... */
     :root {
       --bg: #ffffff;
       --text: #1f2937;
@@ -23,7 +22,7 @@
       --button-hover: #1f2937;
     }
     * { box-sizing: border-box; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 2rem; line-height: 1.5; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystem, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 2rem; line-height: 1.5; }
     .header { text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
     .header h1 { font-size: 2rem; font-weight: 600; margin: 0; color: var(--text); letter-spacing: -0.025em; }
     .table-container { overflow-x: auto; margin-bottom: 2rem; border: 1px solid var(--border); border-radius: 8px; background: white; }
@@ -33,6 +32,7 @@
     th { background: var(--primary); font-weight: 600; color: var(--text); }
     .Online, .Praktisi { background-color: var(--online-bg); color: #1e40af; font-weight: 500; }
     .Offline { background-color: var(--offline-bg); color: #059669; font-weight: 500; }
+    .Observasi { background-color: var(--offline-bg); color: #059669; font-weight: 500; }
     .Asinkronus, .Penugasan, .Elearning { background-color: var(--asinkronus-bg); color: #d97706; font-weight: 500; }
     .none { font-style: italic; font-weight: normal; color: #6b7280; background-color: var(--putih-abu-bg);}
     .UTS { background-color: var(--uts-bg); color: #ca8a04; font-weight: 600; }
@@ -192,6 +192,7 @@
         <option value="Online">Online</option>
         <option value="Praktisi">Praktisi</option>
         <option value="Offline">Offline</option>
+        <option value="Observasi">Observasi</option>
         <option value="Asinkronus">Asinkronus</option>
         <option value="Penugasan">Penugasan</option>
         <option value="Elearning">E-learning</option>
@@ -222,8 +223,6 @@
   </div>
 
   <script>
-    // ... all script content remains the same, no change needed for 22 columns ...
-    // The save/load/export/import logic loops over .editable cells per row, so will work for any number of columns.
     const editor = document.getElementById('editor');
     let currentCell = null;
 
